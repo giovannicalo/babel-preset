@@ -25,12 +25,8 @@
 	"devDependencies": {
 		"babel-eslint": "^4.1.5",
 		"chai": "^3.4.1",
-		"coveralls": "^2.11.4",
 		"eslint": "^1.9.0",
-		"isparta": "^4.0.0",
-		"mocha": "^2.3.3",
-		"posix-cat": "^1.1.1",
-		"rimraf": "^2.4.3"
+		"mocha": "^2.3.3"
 	},
 	"homepage": "https://github.com/giovannicalo/babel-preset",
 	"keywords": ["babel", "es6", "es7", "es2015", "es2016", "node5", "preset"],
@@ -42,7 +38,6 @@
 		"url": "https://github.com/giovannicalo/babel-preset.git"
 	},
 	"scripts": {
-		"coverage": "babel-node node_modules/isparta/bin/isparta cover node_modules/mocha/bin/_mocha --report lcovonly -- --compilers js:babel-core/register --recursive && cat coverage/lcov.info | node node_modules/coveralls/bin/coveralls.js && rimraf coverage",
 		"lint": "eslint .",
 		"test": "mocha --compilers js:babel-core/register --recursive"
 	},
