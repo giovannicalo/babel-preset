@@ -5,7 +5,7 @@
 		"url": "https://github.com/giovannicalo"
 	},
 	"bugs": {
-		"url": "https://github.com/giovannicalo/babel-preset/issues"
+		"url": "https://github.com/giovannicalo/babel-preset-node/issues"
 	},
 	"dependencies": {
 		"babel": "^6.1.18",
@@ -28,14 +28,14 @@
 		"eslint": "^1.9.0",
 		"mocha": "^2.3.3"
 	},
-	"homepage": "https://github.com/giovannicalo/babel-preset",
+	"homepage": "https://github.com/giovannicalo/babel-preset-node",
 	"keywords": ["babel", "es6", "es7", "es2015", "es2016", "node5", "preset"],
 	"license": "MIT",
 	"main": "source/index.js",
-	"name": "babel-preset-giovanni",
+	"name": "babel-preset-node-giovanni",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/giovannicalo/babel-preset.git"
+		"url": "https://github.com/giovannicalo/babel-preset-node.git"
 	},
 	"scripts": {
 		"lint": "eslint .",
