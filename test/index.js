@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-
 import * as Babel from "babel-core";
 import Chai from "chai";
 
@@ -12,6 +10,7 @@ const config = {
 	plugins: [
 		"transform-async-to-generator",
 		"transform-class-properties",
+		"transform-decorators-legacy",
 		"transform-es2015-destructuring",
 		"transform-es2015-modules-commonjs",
 		"transform-es2015-parameters",
@@ -19,12 +18,13 @@ const config = {
 		"transform-exponentiation-operator",
 		"transform-function-bind",
 		"transform-object-rest-spread",
-		"transform-react-jsx"
+		"transform-react-jsx",
+		"transform-runtime"
 	]
 };
 
 const normalize = (code) => {
-	return code.replace(/\s|"use strict";/g, "");
+	return code.replace(/\s|"use strict";/g, "").replace(/let(Foo|Bar)=/g, "");
 };
 
 const transform = (code) => {
@@ -57,7 +57,7 @@ const test = (input, isSupported, isNative, custom) => {
 describe("Syntax", () => {
 	describe("Node", () => {
 		[
-			["arrow functions", `const foo = () => {};`],
+			["arrow functions", "const foo = () => {};"],
 			["classes", `
 				class Foo {
 					bar() {}
@@ -68,8 +68,8 @@ describe("Syntax", () => {
 					}
 				}
 			`],
-			["computed properties", `const foo = { ["bar"]: "foo" };`],
-			["for-of loops", `for (const foo of ["bar"]) {}`],
+			["computed properties", "const foo = { [\"bar\"]: \"foo\" };"],
+			["for-of loops", "for (const foo of [\"bar\"]) {}"],
 			["generators", `
 				function * foo() {
 					yield "bar";
@@ -92,13 +92,13 @@ describe("Syntax", () => {
 				const foo = "bar";
 				const bar = { foo };
 			`],
-			["symbols", `const foo = Symbol();`],
+			["symbols", "const foo = Symbol();"],
 			["template strings", `const foo = \`${"foo"}bar\`;`],
 			["unicode literals", null, () => {
 				expect("\u6b7b").to.equal("死");
 			}]
 		].forEach((feature) => {
-			it("should support " + feature[0], () => {
+			it(`should support ${feature[0]}`, () => {
 				test(feature[1], true, true, feature[2]);
 			});
 		});
@@ -119,22 +119,29 @@ describe("Syntax", () => {
 			`],
 			["class properties", `
 				class Foo {
-					foo = bar;
+					foo = "bar";
 					static bar = "foo";
 				}
 			`],
-			["default parameters", `const foo = (bar = "foo") => {};`],
+			["decorators", `
+				function foo() {
+					return () => {};
+				}
+				@foo()
+				class Bar {}
+			`],
+			["default parameters", "const foo = (bar = \"foo\") => {};"],
 			["destructuring", `
 				const foo = { bar: "foo" };
 				const { bar } = foo;
 			`],
-			["destructuring parameters", `const foo = ({ bar }) => {};`],
-			["exponentiation operator", `const foo = 1 ** 1;`],
+			["destructuring parameters", "const foo = ({ bar }) => {};"],
+			["exponentiation operator", "const foo = 1 ** 1;"],
 			["function bind operator", `
 				const foo = { bar() {} };
 				::foo.bar();
 			`],
-			["modules", `import Empty from "./empty";`],
+			["modules", "import Empty from \"./empty\";"],
 			["rest destructuring", `
 				const foo = { bar: "foo", foo: "bar" };
 				const { bar, ...rest } = foo;
@@ -144,9 +151,9 @@ describe("Syntax", () => {
 					foo(bar);
 				};
 			`],
-			["unicode regular expressions", `"死".match(/死/u);`]
+			["unicode regular expressions", "\"死\".match(/死/u);"]
 		].forEach((feature) => {
-			it("should support " + feature[0], () => {
+			it(`should support ${feature[0]}`, () => {
 				test(feature[1], true, false, feature[2]);
 			});
 		});
@@ -154,17 +161,15 @@ describe("Syntax", () => {
 	describe("Nothing", () => {
 		[
 			["anonymous function names", null, () => {
-				const foo = () => {};
+				const foo = () => {
+					// Do nothing
+				};
 				expect(foo.name).not.to.equal("foo");
 			}],
-			["array inclusion check", `["foo"].includes("foo");`],
-			["decorators", `
-				@Foo()
-				class Bar {}
-			`],
-			["sticky regular expressions", `"foo".match(/foo/y);`]
+			["array inclusion check", "[\"foo\"].includes(\"foo\");"],
+			["sticky regular expressions", "\"foo\".match(/foo/y);"]
 		].forEach((feature) => {
-			it("should support " + feature[0], () => {
+			it(`should support ${feature[0]}`, () => {
 				test(feature[1], false, false, feature[2]);
 			});
 		});

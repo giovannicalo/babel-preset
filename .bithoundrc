@@ -1,10 +1,10 @@
 {
 	"dependencies": {
 		"unused-ignores": [
-			"babel",
 			"babel-core",
 			"babel-plugin-transform-async-to-generator",
 			"babel-plugin-transform-class-properties",
+			"babel-plugin-transform-decorators-legacy",
 			"babel-plugin-transform-es2015-destructuring",
 			"babel-plugin-transform-es2015-modules-commonjs",
 			"babel-plugin-transform-es2015-parameters",
@@ -12,7 +12,9 @@
 			"babel-plugin-transform-exponentiation-operator",
 			"babel-plugin-transform-function-bind",
 			"babel-plugin-transform-object-rest-spread",
-			"babel-plugin-transform-react-jsx"
+			"babel-plugin-transform-react-jsx",
+			"babel-plugin-transform-runtime",
+			"babel-runtime"
 		]
 	}
 }

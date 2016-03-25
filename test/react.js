@@ -2,5 +2,7 @@ class Component {}
 
 export default {
 	Component,
-	createElement() {}
+	createElement() {
+		// Do nothing
+	}
 };

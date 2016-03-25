@@ -1,5 +1,5 @@
 const prefix = (name) => {
-	return "babel-plugin-transform-" + name;
+	return `babel-plugin-transform-${name}`;
 };
 
 const plugins = [
@@ -12,9 +12,12 @@ const plugins = [
 	"exponentiation-operator",
 	"function-bind",
 	"object-rest-spread",
-	"react-jsx"
+	"react-jsx",
+	"runtime"
 ].map((plugin) => {
 	return require(prefix(plugin));
 });
+
+plugins.push(require(prefix("decorators-legacy")).default);
 
 module.exports = { plugins };

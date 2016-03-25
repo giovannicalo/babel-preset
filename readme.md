@@ -8,6 +8,7 @@ A [Babel](https://babeljs.io) 6 Preset for [Node](https://nodejs.org) 5, includi
 
 * [`async-to-generator`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-async-to-generator)
 * [`class-properties`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-class-properties)
+* [`decorators-legacy`](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
 * [`es2015-destructuring`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-es2015-destructuring)
 * [`es2015-modules-commonjs`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-es2015-modules-commonjs)
 * [`es2015-parameters`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-es2015-parameters)
@@ -16,6 +17,7 @@ A [Babel](https://babeljs.io) 6 Preset for [Node](https://nodejs.org) 5, includi
 * [`function-bind`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-function-bind)
 * [`object-rest-spread`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-object-rest-spread)
 * [`react-jsx`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-react-jsx)
+* [`runtime`](https://github.com/babel/babel/tree/master/packages/babel-plugin-transform-runtime)
 
 ## Installation
 
