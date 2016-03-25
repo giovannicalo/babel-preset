@@ -24,7 +24,7 @@ const config = {
 };
 
 const normalize = (code) => {
-	return code.replace(/\s|"use strict";/g, "").replace(/let(Foo|Bar)=/g, "");
+	return code.replace(/\s|"use strict";/g, "");
 };
 
 const transform = (code) => {
@@ -59,14 +59,14 @@ describe("Syntax", () => {
 		[
 			["arrow functions", "const foo = () => {};"],
 			["classes", `
-				class Foo {
+				let Foo = class Foo {
 					bar() {}
-				}
-				class Bar extends Foo {
+				};
+				let Bar = class Bar extends Foo {
 					foo() {
 						super.bar();
 					}
-				}
+				};
 			`],
 			["computed properties", "const foo = { [\"bar\"]: \"foo\" };"],
 			["for-of loops", "for (const foo of [\"bar\"]) {}"],
@@ -74,15 +74,6 @@ describe("Syntax", () => {
 				function * foo() {
 					yield "bar";
 				}
-			`],
-			["object prototypes", `
-				const foo = { bar() {} };
-				const bar = {
-					foo() {
-						super.bar();
-					}
-				};
-				Object.setPrototypeOf(bar, foo);
 			`],
 			["scoped variables", `
 				const foo = "bar";
@@ -92,7 +83,6 @@ describe("Syntax", () => {
 				const foo = "bar";
 				const bar = { foo };
 			`],
-			["symbols", "const foo = Symbol();"],
 			["template strings", `const foo = \`${"foo"}bar\`;`],
 			["unicode literals", null, () => {
 				expect("\u6b7b").to.equal("死");
@@ -142,6 +132,15 @@ describe("Syntax", () => {
 				::foo.bar();
 			`],
 			["modules", "import Empty from \"./empty\";"],
+			["object prototypes", `
+				const foo = { bar() {} };
+				const bar = {
+					foo() {
+						super.bar();
+					}
+				};
+				Object.setPrototypeOf(bar, foo);
+			`],
 			["rest destructuring", `
 				const foo = { bar: "foo", foo: "bar" };
 				const { bar, ...rest } = foo;
@@ -151,6 +150,7 @@ describe("Syntax", () => {
 					foo(bar);
 				};
 			`],
+			["symbols", "const foo = Symbol();"],
 			["unicode regular expressions", "\"死\".match(/死/u);"]
 		].forEach((feature) => {
 			it(`should support ${feature[0]}`, () => {
