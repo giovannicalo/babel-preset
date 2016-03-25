@@ -28,6 +28,7 @@
 		"babel-eslint": "^6.0.0-beta.6",
 		"chai": "^3.5.0",
 		"eslint": "^2.4.0",
+		"eslint-config-giovanni": "^1.0.0",
 		"mocha": "^2.4.5"
 	},
 	"homepage": "https://github.com/giovannicalo/babel-preset-node",
