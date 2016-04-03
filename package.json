@@ -25,11 +25,9 @@
 	},
 	"description": "Babel Preset for Node",
 	"devDependencies": {
-		"babel-eslint": "^6.0.0-beta.6",
 		"babel-register": "^6.7.2",
 		"chai": "^3.5.0",
-		"eslint": "^2.5.1",
-		"eslint-config-giovanni": "^1.1.1",
+		"eslint-config-giovanni": "^1.1.2",
 		"mocha": "^2.4.5"
 	},
 	"homepage": "https://github.com/giovannicalo/babel-preset-node",
