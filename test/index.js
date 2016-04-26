@@ -13,13 +13,10 @@ const config = {
 		"transform-decorators-legacy",
 		"transform-es2015-destructuring",
 		"transform-es2015-modules-commonjs",
-		"transform-es2015-parameters",
-		"transform-es2015-unicode-regex",
 		"transform-exponentiation-operator",
 		"transform-function-bind",
 		"transform-object-rest-spread",
-		"transform-react-jsx",
-		"transform-runtime"
+		"transform-react-jsx"
 	]
 };
 
@@ -57,6 +54,7 @@ const test = (input, isSupported, isNative, custom) => {
 describe("Syntax", () => {
 	describe("Node", () => {
 		[
+			["array inclusion check", "[\"foo\"].includes(\"foo\");"],
 			["arrow functions", "const foo = () => {};"],
 			["classes", `
 				let Foo = class Foo {
@@ -69,11 +67,27 @@ describe("Syntax", () => {
 				};
 			`],
 			["computed properties", "const foo = { [\"bar\"]: \"foo\" };"],
+			["default parameters", "const foo = (bar = \"foo\") => {};"],
+			["destructuring parameters", "const foo = ({ bar }) => {};"],
 			["for-of loops", "for (const foo of [\"bar\"]) {}"],
 			["generators", `
 				function * foo() {
 					yield "bar";
 				}
+			`],
+			["object prototypes", `
+				const foo = { bar() {} };
+				const bar = {
+					foo() {
+						super.bar();
+					}
+				};
+				Object.setPrototypeOf(bar, foo);
+			`],
+			["rest parameters", `
+				const foo = (...bar) => {
+					foo(bar);
+				};
 			`],
 			["scoped variables", `
 				const foo = "bar";
@@ -83,10 +97,13 @@ describe("Syntax", () => {
 				const foo = "bar";
 				const bar = { foo };
 			`],
+			["sticky regular expressions", "\"foo\".match(/foo/y);"],
+			["symbols", "const foo = Symbol();"],
 			["template strings", `const foo = \`${"foo"}bar\`;`],
 			["unicode literals", null, () => {
 				expect("\u6b7b").to.equal("死");
-			}]
+			}],
+			["unicode regular expressions", "\"死\".match(/死/u);"]
 		].forEach((feature) => {
 			it(`should support ${feature[0]}`, () => {
 				test(feature[1], true, true, feature[2]);
@@ -108,10 +125,10 @@ describe("Syntax", () => {
 				}
 			`],
 			["class properties", `
-				class Foo {
+				let Foo = class Foo {
 					foo = "bar";
 					static bar = "foo";
-				}
+				};
 			`],
 			["decorators", `
 				function foo() {
@@ -120,38 +137,24 @@ describe("Syntax", () => {
 				@foo()
 				class Bar {}
 			`],
-			["default parameters", "const foo = (bar = \"foo\") => {};"],
 			["destructuring", `
 				const foo = { bar: "foo" };
 				const { bar } = foo;
 			`],
-			["destructuring parameters", "const foo = ({ bar }) => {};"],
 			["exponentiation operator", "const foo = 1 ** 1;"],
 			["function bind operator", `
 				const foo = { bar() {} };
 				::foo.bar();
 			`],
 			["modules", "import Empty from \"./empty\";"],
-			["object prototypes", `
-				const foo = { bar() {} };
-				const bar = {
-					foo() {
-						super.bar();
-					}
-				};
-				Object.setPrototypeOf(bar, foo);
+			["rest array destructuring", `
+				const foo = ["foo", "bar"];
+				const [bar, ...rest] = foo;
 			`],
-			["rest destructuring", `
+			["rest object destructuring", `
 				const foo = { bar: "foo", foo: "bar" };
 				const { bar, ...rest } = foo;
-			`],
-			["rest parameters", `
-				const foo = (...bar) => {
-					foo(bar);
-				};
-			`],
-			["symbols", "const foo = Symbol();"],
-			["unicode regular expressions", "\"死\".match(/死/u);"]
+			`]
 		].forEach((feature) => {
 			it(`should support ${feature[0]}`, () => {
 				test(feature[1], true, false, feature[2]);
@@ -165,9 +168,7 @@ describe("Syntax", () => {
 					// Do nothing
 				};
 				expect(foo.name).not.to.equal("foo");
-			}],
-			["array inclusion check", "[\"foo\"].includes(\"foo\");"],
-			["sticky regular expressions", "\"foo\".match(/foo/y);"]
+			}]
 		].forEach((feature) => {
 			it(`should support ${feature[0]}`, () => {
 				test(feature[1], false, false, feature[2]);
