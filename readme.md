@@ -1,4 +1,4 @@
-# Babel Preset Node <br /> [![Build Status](https://travis-ci.org/giovannicalo/babel-preset-node.svg?branch=master)](https://travis-ci.org/giovannicalo/babel-preset-node)
+# Babel Preset Node <br /> [![NPM version](https://badge.fury.io/js/babel-preset-node-giovanni.svg)](https://badge.fury.io/js/babel-preset-node-giovanni) [![Dependency Status](https://david-dm.org/giovannicalo/babel-preset-node.svg)](https://david-dm.org/giovannicalo/babel-preset-node) [![Build Status](https://travis-ci.org/giovannicalo/babel-preset-node.svg?branch=master)](https://travis-ci.org/giovannicalo/babel-preset-node)
 
 A [Babel](https://babeljs.io) 6 Preset for [Node](https://nodejs.org) 5, including most [ES6](https://github.com/tc39/ecma262-6-src) and [ES7](https://github.com/tc39/ecma262) features, as well as [React](http://facebook.github.io/react/) support, preferring native implementations where possible.
 
