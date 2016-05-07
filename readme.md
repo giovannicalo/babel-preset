@@ -18,6 +18,6 @@ A [Babel](https://babeljs.io) 6 Preset for [Node](https://nodejs.org) 6, includi
 
 ## Installation
 
-```
+```bash
 npm install babel-preset-node-giovanni
 ```
