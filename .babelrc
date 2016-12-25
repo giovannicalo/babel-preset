@@ -3,9 +3,7 @@
 		"transform-async-to-generator",
 		"transform-class-properties",
 		"transform-decorators-legacy",
-		"transform-es2015-destructuring",
 		"transform-es2015-modules-commonjs",
-		"transform-exponentiation-operator",
 		"transform-function-bind",
 		"transform-object-rest-spread",
 		"transform-react-jsx"
