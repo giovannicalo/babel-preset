@@ -1,9 +1,7 @@
 import * as Babel from "babel-core";
-import Chai from "chai";
+import Chai, { expect } from "chai";
 
 Chai.config.showDiff = true;
-
-const expect = Chai.expect;
 
 const config = {
 	compact: true,
@@ -11,9 +9,7 @@ const config = {
 		"transform-async-to-generator",
 		"transform-class-properties",
 		"transform-decorators-legacy",
-		"transform-es2015-destructuring",
 		"transform-es2015-modules-commonjs",
-		"transform-exponentiation-operator",
 		"transform-function-bind",
 		"transform-object-rest-spread",
 		"transform-react-jsx"
@@ -54,6 +50,12 @@ const test = (input, isSupported, isNative, custom) => {
 describe("Syntax", () => {
 	describe("Node", () => {
 		[
+			["anonymous function names", null, () => {
+				const foo = () => {
+					// Do nothing
+				};
+				expect(foo.name).to.equal("foo");
+			}],
 			["array inclusion check", "[\"foo\"].includes(\"foo\");"],
 			["arrow functions", "const foo = () => {};"],
 			["classes", `
@@ -68,7 +70,12 @@ describe("Syntax", () => {
 			`],
 			["computed properties", "const foo = { [\"bar\"]: \"foo\" };"],
 			["default parameters", "const foo = (bar = \"foo\") => {};"],
+			["destructuring", `
+				const foo = { bar: "foo" };
+				const { bar } = foo;
+			`],
 			["destructuring parameters", "const foo = ({ bar }) => {};"],
+			["exponentiation operator", "const foo = 1 ** 1;"],
 			["for-of loops", "for (const foo of [\"bar\"]) {}"],
 			["generators", `
 				function * foo() {
@@ -83,6 +90,10 @@ describe("Syntax", () => {
 					}
 				};
 				Object.setPrototypeOf(bar, foo);
+			`],
+			["rest array destructuring", `
+				const foo = ["foo", "bar"];
+				const [bar, ...rest] = foo;
 			`],
 			["rest parameters", `
 				const foo = (...bar) => {
@@ -121,8 +132,8 @@ describe("Syntax", () => {
 				const foo = async() => {
 					await new Promise((resolve) => {
 						resolve();
-					})
-				}
+					});
+				};
 			`],
 			["class properties", `
 				let Foo = class Foo {
@@ -137,20 +148,11 @@ describe("Syntax", () => {
 				@foo()
 				class Bar {}
 			`],
-			["destructuring", `
-				const foo = { bar: "foo" };
-				const { bar } = foo;
-			`],
-			["exponentiation operator", "const foo = 1 ** 1;"],
 			["function bind operator", `
 				const foo = { bar() {} };
 				::foo.bar();
 			`],
 			["modules", "import Empty from \"./empty\";"],
-			["rest array destructuring", `
-				const foo = ["foo", "bar"];
-				const [bar, ...rest] = foo;
-			`],
 			["rest object destructuring", `
 				const foo = { bar: "foo", foo: "bar" };
 				const { bar, ...rest } = foo;
@@ -162,14 +164,7 @@ describe("Syntax", () => {
 		});
 	});
 	describe("Nothing", () => {
-		[
-			["anonymous function names", null, () => {
-				const foo = () => {
-					// Do nothing
-				};
-				expect(foo.name).not.to.equal("foo");
-			}]
-		].forEach((feature) => {
+		[].forEach((feature) => {
 			it(`should support ${feature[0]}`, () => {
 				test(feature[1], false, false, feature[2]);
 			});
