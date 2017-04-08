@@ -3,7 +3,6 @@ const prefix = (name) => {
 };
 
 const plugins = [
-	"async-to-generator",
 	"class-properties",
 	"es2015-modules-commonjs",
 	"function-bind",

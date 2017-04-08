@@ -6,7 +6,6 @@ Chai.config.showDiff = true;
 const config = {
 	compact: true,
 	plugins: [
-		"transform-async-to-generator",
 		"transform-class-properties",
 		"transform-decorators-legacy",
 		"transform-es2015-modules-commonjs",
@@ -58,6 +57,13 @@ describe("Syntax", () => {
 			}],
 			["array inclusion check", "[\"foo\"].includes(\"foo\");"],
 			["arrow functions", "const foo = () => {};"],
+			["asynchronous functions", `
+				const foo = async() => {
+					await new Promise(resolve => {
+						resolve();
+					});
+				};
+			`],
 			["classes", `
 				let Foo = class Foo {
 					bar() {}
@@ -127,13 +133,6 @@ describe("Syntax", () => {
 				import React from "./react";
 				class Foo extends React.Component {}
 				<Foo />;
-			`],
-			["asynchronous functions", `
-				const foo = async() => {
-					await new Promise((resolve) => {
-						resolve();
-					});
-				};
 			`],
 			["class properties", `
 				let Foo = class Foo {

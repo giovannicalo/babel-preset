@@ -1,6 +1,5 @@
 {
 	"plugins": [
-		"transform-async-to-generator",
 		"transform-class-properties",
 		"transform-decorators-legacy",
 		"transform-es2015-modules-commonjs",
